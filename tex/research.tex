@@ -1,0 +1,585 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{amsthm}
+\usepackage[parfill]{parskip}
+
+% input encoding and font enconding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% biblatex setup
+\usepackage[backend=biber,
+            style=ieee,
+            ]{biblatex}
+\addbibresource{bibliography.bib}
+
+% context-sensitive quotes package (?)
+\usepackage{csquotes}
+
+% font packages
+\usepackage{lmodern}
+\usepackage{courierten}
+
+% font setup
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\rmdefault}{cmr}
+
+% hyperref package; convention to always add as last package
+\usepackage{hyperref}
+
+% removing highlighting of hyperref links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={Software Engineering: The Discipline}
+    }
+
+
+\begin{document}
+    \begin{titlepage}
+        \title{Software Engineering: The Discipline}
+        \author{Raul-Andrei Ariton}
+        \date{Last updated (\texttt{compiled}) \today}
+        \maketitle
+    \end{titlepage}
+
+    \tableofcontents
+
+    \newpage
+    
+    \section{What is software engineering?}
+
+        IEEE\footnote{the Institute of Electrical and Electronics Engineers.} defines software engineering as
+
+        ``The application of a systematic, disciplined, quantifiable approach to the development, operation and maintenance of software''.
+
+        Software engineering is not just \emph{designing and developing software}. It is rather an \emph{engineering approach} to develop software\supercite{mall2018fundamentals}.
+
+    \section{Activities in software engineering}
+
+        Denning in \cite{denning2000computer} describes three major activities (or \emph{paradigms}) carried out in all areas of computer science: \textbf{theory}, \textbf{experimentation} and \textbf{design}.
+
+        \subsection{Theory}
+
+            Theories offer common explanations and understanding of basic concepts and underlying mechanisms, and thus they are essential for knowledge of passing trends and the reason for their manifestation\supercite{hannaysestematic}. 
+
+            Although the usefulness of theories in software engineering is a subject of debate, as \cite{hannaysestematic} very well explains, \emph{building theories is a means to go beyond the mere observation of phenomena, and to try to understand \emph{why} and \emph{how} these phenomena occur}.
+
+            \subsubsection{Topics of research}
+
+                A systematic analysis on research in the area of software engineering conducted in \cite{glass2002research} suggests that the main topics of research are:
+
+                \begin{itemize}
+                    \item Software and software systems concepts, particularly:
+                        \begin{itemize}
+                            \item Methods and techniques, such as design patterns, parallel processing, etc.;
+                            \item Software development tools, for instance compilers, debuggers and linters;
+                            \item Software development life cycle stages, software engineering process models (methodologies, e.g. \emph{agile, RAD, waterfall, DevOps etc.});
+                            \item Software quality assurance, through benchmarking to measure performance and through implementation of fault tolerance;
+                        \end{itemize}
+                    
+                    \item Software and software system management concepts, for instance:
+                        \begin{itemize}
+                            \item Development and use of software measurement methods;
+                            \item Project and product management, including the process of risk management;
+                        \end{itemize}
+
+                    \item Computer networks and distributed systems;
+                    \item Database organization and information retrieval;
+                    \item Problem-solving methodologies; and others.
+                    
+                \end{itemize}
+
+            \subsubsection{Research methods}
+
+                \cite{glass1994software} identifies research models used in the field of software engineering. These are:
+                \begin{itemize}
+                    \item The \textbf{Scientific method}, where the world is observed, and a model, based on the observation, is built.
+                    
+                    This method is typically used in applied areas, where simulations must be made in order to evaluate performance, e.g. telecommunication networks\supercite{wohlin2012experimentation}. 
+                    \item The \textbf{Engineering method}, where current solutions are studied, possible modifications are proposed, and then evaluated.
+                    
+                    Engineering methods may also use simulations as a means for conducting experiments. The engineering method of research is the most dominant in the area. 
+                    \item The \hypertarget{empiricalmethod}{\textbf{Empirical method}}, in which a model is proposed, then applied to case studies for assessment and validation.
+                    
+                    This method has been gaining popularity over the past decade. In fact, empirical software engineering has grown so popular that it is now considered a sub-field of software engineering. 
+                    \item The \textbf{Analytical method}, in which a formal theory or a set of axioms is proposed, then results are derived, which can then be compared with empirical observations.
+                    
+                    This method is tradionally used in more theory-intensive, formal areas of computer science, e.g. algorithms\supercite{wohlin2012experimentation}.
+                    
+                \end{itemize}
+
+
+        \subsection{Experimentation}
+
+            In software engineering, experimentation is a means of evaluating and choosing between various methods, techniques, languages (\emph{formal, programming}) and tools before using them in later software development processes. It also enables understanding, identifying and verifying relationships between different factors, different variables in a process\supercite{wohlin2012experimentation}. 
+            
+            \subsubsection{Purpose of experimentation}
+
+                Experiments may be used in various contexts, such as\supercite{wohlin2012experimentation}:
+                \begin{itemize}
+                    \item to confirm theories;
+                    \item to confirm common conceptions about a topic;
+                    \item to explore relationships between different factors and variables;
+                    \item to verify the accuracy of models;
+                    \item to validate measures.
+                \end{itemize}
+
+                \noindent Through experimentation, claims (\emph{i.e. theories}) can be investigated in order to determine in which situations they hold, as well as to determine contexts in which certain standards, methods and tools are suitable to use.
+
+            \subsubsection{Classification of experiments}
+
+            \noindent Experiments may be \emph{human-oriented}, where humans apply different treatments to objects, or \emph{technology-oriented}, where different tools are applied to different objects\supercite{wohlin2012experimentation}.
+
+            \begin{itemize}
+                \item An example of a human-oriented experiment is one where multiple subjects are asked to inspect a piece of code, as an evaluation of inspection methods.
+    
+                \item An example of a technology-oriented experiment is one where multiple sorting algorithms are applied to the same sorting problem, as a means of assessing their corectness and performance.
+            \end{itemize}
+
+            \subsubsection{Theory in experimentation}
+
+                Experiments are suitable for \emph{causal description}, i.e. ``describing the consequence attributable to deliberately varying a treatment\supercite{hannaysestematic}''.
+
+                Experiments, however, only provide a \emph{description} rather than an \emph{explanation}.
+                The desire for a \emph{causal explanation} leads to the development of theory.
+
+                Theories clarify the mechanisms through which, as well as the conditions under which a phenomenon occurs.
+
+                The use of theory, however, is scarce in software engineering, as concluded by \cite{hannaysestematic}. 
+                
+                Perhaps this is one of the reasons many exclude the field when mentioning engineering sciences, as well as the reason why it is still a maturing field.
+
+                Moreover,  with the substantial growth empirical software engineering in the past decade, usage of \hyperlink{empiricalmethod}{empirical research methods} is becoming more of a common practice, and thus less and less theoretical elements are used in research, in favor of simulations, case studies and other techniques.
+
+                As \cite{wohlin2012experimentation} very well states, ``\emph{theory building in software engineering should be developed, in order for the field to develop into a mature field of science}''.
+
+        \subsection{Design}
+
+            The design activity in software engineering has to do with \emph{designing} as well as \emph{implementing/building} software that support work in given organizations or application domains\supercite{denning2000computer}.
+
+            Since software engineering is primarily a design specialty, the majority of those in the area of software engineering deal with design rather than theory and experimentation.
+
+            We shall separate the design activity into \emph{design} and \emph{development}, as they represent two separate fields of software engineering thus their distinction is clear.
+
+            \paragraph{Designing software.}
+                \textit{Software design is the purposeful conception of a [software] product and the planning for its production}\supercite{Taylor2019}.
+
+                It is concerned with both the internal and the external design of a software system. 
+                
+                \subparagraph{External design of a software product.} 
+                    External design defines the features of the product (\emph{what the product can do}) and how it interacts with the users and its environment. It determines how well the product satisfies the client's specifications (and thus the user's desires)\supercite{Taylor2019}.
+                
+                \subparagraph{Internal design of a software product.}
+                    Internal design defines how the aforementioned external features work, and determines many attributes of the product's functionality, such as its performance and reliability.
+
+                    A critical attribute determined by the internal design of a software product is its evolution: how it can evolve to meet users' changing needs\supercite{Taylor2019}.
+
+                \subparagraph{Software architecture.} The architecture of a software system is a set of fundamental design choices, which Taylor in \cite{Taylor2019} calls the ``\emph{principal decisions}''. The architecture of a software system is fundamental to its conceptual integrity.
+                
+            \paragraph{Developing software.}
+
+                Software development is defined by \cite{ibmWhatSoftware} as a sub-field of software engineering that deals with creating, designing\footnote{not to be confused with the designing that software designers deal with. Software developers design the software system at a much more lower level.}, deploying and maintaining software.
+
+                Compared to software engineers, software developers have a less formal role in the process of software engineering. They are involved in the practical side of things; working with various teams involved in specific project areas to transform specifications into features, and conducting software testing and maintenance.
+
+            \paragraph{A common misconception.} 
+                As one reading this article may have realized, software engineering is not just programming, testing and debugging. Before the software developers even begin coding, a lot of thought is put into the design of the product (\emph{a work of software designers and software architects}), as well as the intricate mechanics with which all of the system's modules communicate with one another.
+
+                Thus, the work of a software developer is not comparable to that of a software engineer, but rather \emph{software development is a subset of software engineering}, \emph{a stage in the process of software engineering}.
+
+    \newpage
+    \section{Open Problems in software engineering}
+
+            \cite{wikiversityUnsolvedProblems} lists a few open problems in the field of software engineering:
+
+            \begin{itemize}
+                \item Is it possible to simulate a human mind? Can a machine become conscious?
+                
+                Simulations are not a rare thing in software engineering, as they are used in research. Simulating a human mind is not as trivial, though. The motivation for this problem dates back to the 1950s, with the \href{https://en.wikipedia.org/wiki/Turing_test}{Turing test}.
+                Since then, many attempts have been made, which in turn motivated many advancements in fields such as artificial intelligence in combination with software engineering. With the many chatbots available today based on large language models, one can only wonder how close we are to achieving a \emph{full} simulation of the human mind.
+                
+                \item Systematic detection and prediction of software system defects.
+                
+                This problem focuses on inventing tools which facilitate early software defect prediction. While there already exist such tools (\emph{program linters, code analyzers, etc.}), the many types of errors that happen in the process of software engineering, \emph{that are not necessarily exclusive to the software development stage}, lead to the demand for solutions, to avoid errors in the final release of the product.
+
+                The field of artificial intelligence has brought advancements at exponential rates in the past few years, and the industry seeks to implement such powerful capabilities in the software engineering process. Such tools are already available and popular in the software development community (e.g. AI coding assistants), however studies are being made to implement artificial intelligence in the more formal, theoretical parts of software engineering (design, architecture, project management, etc.), see for example \cite{PACHOULY2022104773}.
+                
+                \item Software testing cannot always be formally proved\supercite{linkedinTestingUnsolvedProblem}.
+                
+                Turing \emph{et al.} proposed the \href{https://en.wikipedia.org/wiki/Halting_problem#:~:text=In%20computability%20theory%2C%20the%20halting,or%20continue%20to%20run%20forever.}{Halting problem}, proving that, given a set of program instructions and an input, there is no algorithm which can determine if the program will stop (i.e. \emph{halt}) given that input.
+
+                Furthermore, Gödel proved with his \href{https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems}{incompleteness theorems} that a set of axioms, that define a set of rules and logic (i.e. an \emph{algorithm}) can contain contradicting axioms, or axioms which cannot be proved.
+
+                Essentially, even if one uses formal logic and formal methods to prove program corectness, there is no guarantee that the program is correct under \emph{each and every case}.
+
+                Therefore, software testers only have their human intuitions to verify the corectness of a program. Human intuition is based on experience, meaning that, the more experience one has, the easier it gets to recognize mistakes and fix them while they can.
+
+                The problem of software testing will likely remain unsolved. One cannot rely on formal methods to test any type of program, as this has been mathematically proven to be unreliable. The search for less human-intensive software testing methods remains ongoing.
+
+            \end{itemize}
+
+        % Software engineers study and apply the principles of software system design and development. Specifically, their duties include:
+        % \begin{itemize}
+        %     \item Identifying a recurrent problem (\emph{or generally an action}) and specificying a system of software (\emph{and in some cases, hardware}) components (\emph{modules of the system}) to either support the action or solve the problem.
+        %     \item Developing software through a well-defined, ordered set of activities, \textbf{a software development process model}.
+        %     \item Ensuring long-term evolution of software.
+
+        %     \subsection{Methods and techniques used by Software Engineers}
+        %         Mainly, the process of software engineering is done under a 
+                
+        % \end{itemize}
+
+    \newpage
+    \section{Important figures}
+        \subsection*{Pioneers in software engineering}
+
+            This section lists people who have contributed to fundamental software engineering concepts and inventions.
+            Information was provided by various sources online (Wikipedia, Google Scholar, Institution pages, etc.).
+
+            \begin{itemize}
+                \item 
+                % first name last name
+                Mary Shaw
+
+                % current occupation or notable occupations
+                Professor at Carnegie Mellon University.
+                IEEE fellow and member of ACM.
+
+                % known for (achievements)
+                Received the Outstanding Research Award from ACM, for her ``significant and lasting software enineering research contributions through he development and promotion of software architecture''.
+                Moreover, awarded with the \href{https://nationalmedals.org/laureate/mary-shaw/}{National Medal of Technology and Innovation} by US President Barack Obama.
+                
+                % research interests
+                Research interests: software architecture, programming systems, abstraction technique, program organization for quality human interfaces, reliable software development, software evaluation techniques
+
+                % contact email or website
+                \href{mailto:mary.shaw@cs.cmu.edu}{\texttt{mary.shaw@cs.cmu.edu}}
+
+                % image
+                % https://s3d.cmu.edu/people/images-people/shaw-mary.JPG
+
+                
+                \item Robert L. Glass
+                
+                ACM, IEEE fellow and emeritus editor-in-chief of JSS.
+
+                Known for works on software design quality measurement.
+
+                Research interests: software engineering in practice, software quality, software maintenance.
+
+                \href{mailto:rlglass@acm.org}{\texttt{rlglass@acm.org}}
+                
+                \item
+                % first name last name
+                Bertrand Meyer
+
+                % current occupation or notable occupations
+                Professor emeritus of Software Engineering at ETH Zurich
+                Professor of Software Engineering and Provost at Constructor Institute
+
+                % known for (achievements)
+                One of the earliest and most vocal proponents of object-oriented programming.
+                Additionally known for designing the \href{https://en.wikipedia.org/wiki/Eiffel_(programming_language)}{Eiffel object-oriented programming language}.
+                
+                % research interests
+                Research interests: high quality software production, automated testing techniques, automated techniques for correcting program bugs, automated proofs and applications of formal methods and more.
+
+                % contact email or website
+                \href{mailto:bertrand.meyer@inf.ethz.ch}{\texttt{bertrand.meyer@inf.ethz.ch}}
+
+                \item
+                % first name last name
+                Grady Booch
+
+                % current occupation or notable occupations
+                ACM, IEEE, IBM fellow.
+                Chief Scientist for Software Engineering at IBM
+
+                % known for (achievements)
+                Known for major contributions in object-oriented programming, \href{https://en.wikipedia.org/wiki/Component-based_software_engineering}{component-based software engineering} as well as being one of the creators of \href{https://en.wikipedia.org/wiki/Unified_Modeling_Language}{UML}.
+                
+                % research interests
+                Research interests: development of cognitive systems, large-scale (of national importance) software architecture.
+
+                % contact email or website
+                \href{mailto:egrady@booch.com}{\texttt{egrady@booch.com}}
+
+                % image
+                % https://learning.acm.org/binaries/content/gallery/acm/ctas/people/grady_booch.jpg
+
+                \item 
+                % first name last name
+                Ivar Jacobson
+
+                % current occupation or notable occupations
+                CEO of Ivar Jacobson international, a company that prives software consulting, coaching and training solutions implementing large scale software. Flourishing career in both academia and business. 
+
+                % known for (achievements)
+                Known for major contributions in object-oriented programming, \href{https://en.wikipedia.org/wiki/Component-based_software_engineering}{component-based software engineering} as well as the creation of \href{https://en.wikipedia.org/wiki/Unified_Modeling_Language}{UML}.
+
+                
+                % research interests
+                Research interests: using software development methods and tools efficiently, in an agile way, components, component architecture
+
+                % contact email or website
+                \href{https://www.ivarjacobson.com/}{\texttt{ivarjacobson.com}}
+
+                % image
+                % https://softeng.polito.it/ICSR13/img/IvarJacobson.JPG
+
+                \item
+                % first name last name
+                Michael A. Jackson
+
+                % current occupation or notable occupations
+                ACM, IEEE fellow.
+                Independent software consultant on specification and design of software-intensive systems.
+                Visiting research professor at the Open University in the UK.
+
+                % known for (achievements)
+                Known for contributions to modular programming, and most importantly for developing the Jackson Structured Programming method, as well as the \href{https://en.wikipedia.org/wiki/Jackson_system_development}{Jackson System Development (JSD) methodology}.
+                Additionally, Jackson has developed the \href{https://en.wikipedia.org/wiki/Problem_frames_approach}{problem frames approach} to software requirement analysis.
+
+                % research interests
+                Research interests: problem frames approach, sequential program design, information system development
+
+                % contact email or website
+                \href{mailto:jacksonma@acm.org}{\texttt{jacksonma@acm.org}}
+
+                \item
+                % first name last name
+                Larry Constantine
+
+                % current occupation or notable occupations
+                ACM, IEEE fellow.
+                Professor at the University of Madeira's Department of Mathematics and Engineering.
+
+                % known for (achievements)
+                Known for introducing data flow diagrams as a software analysis and design tool, as well as popularizing software structure analysis and design.
+
+                % research interests
+                Research interests: safely-critical interaction, model-driven software design.
+
+                % contact email or website
+                \href{mailto:lconstantine@uma.pt}{\texttt{lconstantine@uma.pt}}
+
+                % image
+                % % https://upload.wikimedia.org/wikipedia/commons/0/0a/Larry_Constantine.jpg
+                
+                \item Margaret E. Hamilton
+                
+                Developed the on-board flight software for NASA's Apollo program and was the director of the Software Engineering Division of the MIT Instrumentation Laboratory. Invented the term ``software engineering''.
+
+                Research interests: \emph{ultra-reliable} software systems, error detection and recovery, formal theory, formal language, operating systems.
+
+                \href{mailto:mhh@htius.com}{\texttt{mhh@htius.com}}
+
+                % image
+                % https://wp.technologyreview.com/wp-content/uploads/2019/08/071019mit-portraits00502.r1_0-7.jpg?w=1335?crop=0px,621px,2000px,1125px&w=1335px
+
+            \end{itemize}
+
+        \subsection*{Active researchers}
+
+            \cite{wong2021bibliometric} has provided a very useful assessment of software engineering scholars which was used throughout this section. Additional information was provided by various sources online (Wikipedia, Google Scholar, Institution pages, etc.).
+
+            \begin{itemize}
+                \item
+                % first name last name
+                Ahmed E. Hassan
+                
+                % occupation
+                Industrial Research Chair in Software Engineering at the Natural Sciences and Engineering Research Council of Canada. Leads the Software Analysis and Intelligence Lab at Queen's University of Canada.
+
+                % research interests
+                Research interests: techniques for large-scale complex software system production, maintenance and evolution, mining software repositories, software evolution and architecture, performance engineering, capacity engineering, debugging and monitoring of distributed systems.
+
+                % contact
+                \href{https://research.cs.queensu.ca/home/ahmed/home/}{\texttt{research.cs.queensu.ca/home/ahmed/home/}}
+
+                % image
+                % https://www.cs.queensu.ca/people/images/user/47.jpg
+
+                \item 
+                % first name last name
+                David Lo
+                
+                % occupation
+                Professor and Director at the School of Computing and Information Systems at Singapore Management University. Lead of the \href{https://soarsmu.github.io/}{Software Analytics Research group}.
+
+                % research interests
+                Research interests: (as part of the Software Analytics Research group) analysis of different kinds of software artefacts (code, execution traces, bug reports, developer networks), transformation of passive software engineering data into automated tools that improve system reliability, security, performance as well as increase developer productivity.
+
+                % contact
+                \href{mailto:davidlo@smu.edu.sg}{\texttt{davidlo@smu.edu.sg}}
+
+                % image
+                % https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzZbSOHUH14sGKmOrKYedrnxRhQBbVF2dEoAEI6wjZTg&s
+
+                \item 
+                % first name last name
+                Paris Avgeriou
+                
+                % occupation
+                Professor (chair of software Engineering) at the University of Groningen and head of the \href{https://search-rug.github.io/}{SEARCH research group}
+
+                % research interests
+                Research interests: (as part of the SEARCH research group) software architecture, software maintenance and evolution, technical debt, empirical software engineering
+
+                % contact
+                \href{mailto:paris@cs.rug.nl}{\texttt{paris@cs.rug.nl}}
+
+                % image
+                % https://www.cs.rug.nl/~paris/newpages/wp-content/uploads/2012/03/avgeriou3-web.jpg
+
+                \item 
+                % first name last name
+                Tsong Yueh Chen
+                
+                % occupation
+                Professor in the Department of Computer Science and Software Engineering at the Swinburne University of Technnology, Australia.
+
+                % research interests
+                Research interests: software testing, software analysis, debugging, test case generation, metamorphic software testing, adaptive random testing, program repair
+                
+                % contact
+                \href{mailto:tychen@swin.edu.au}{\texttt{tychen@swin.edu.au}}
+
+                % image
+                % https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=usJzGjUAAAAJ&citpid=2
+
+            \end{itemize}
+
+    \newpage
+    \section{Important publication venues (journals, conferences)}
+    
+    \begin{center}
+        \begin{tabular}{|c|l|}
+            \hline
+            Abbreviation & Name \\
+            \hline
+            TSE & IEEE Transactions on Software Engineering \\
+            \hline
+            JSS & Journal of Systems and Software \\
+            \hline
+            SW & IEEE Software \\
+            \hline
+            IST & Information and Software Technology \\
+            \hline
+            TOSEM & ACM Transactions on Software Engineering and Methodology \\
+            \hline
+            JSEP & Journal of Software: Evolution and Process \\
+            \hline
+            STTT & International Journal on Software Tools for Technology Transfer \\
+            \hline
+            EMSE & Empirical Software Engineering \\
+            \hline
+            ICSA & International Conference on Software Architecture \\
+            \hline
+            ASE & Automated Software Engineering Conference \\
+            \hline
+            ICSE & International Conference on Software Engineering \\ \hline
+            ISTTA & International Symposium on Software Testing and Analysis \\ \hline
+            EASE & International Conference on Evaluation and Assessment in Software Engineering \\
+            \hline
+            FSE & International Symposium on the Foundations of Software Engineering \\
+            \hline
+            ESEM & International Symposium on Empirical Software Engineering and Measurement \\
+            \hline
+            ICSME & International Conference on Software Maintenance and Evolution \\ \hline
+            FASE & Fundamental Approaches to Software Engineering \\ \hline
+
+        \end{tabular}
+    \end{center}
+
+    \newpage
+    \section{Connection to other areas}
+        \subsection*{Connection to other areas of Computer Science}
+
+            Software engineering can be described as an application of all computer science fields. 
+            
+            One way or another, during the process of software development, competencies and knowledge from another field of computer science will be used, whether that be algorithms and data structures or human-computer interaction. Some fields have more impact on the process of software development than others. A list follows.
+
+            \begin{itemize}
+                \item Computer Engineering
+                
+                    At times, low-level knowledge is required; meaning the software engineer must modify the product design accordingly, in order to match the capabilities of the average machine running the product.
+
+                    For instance, a software product for mobile phones is designed much differently than one made for computers, due to their different architectures and computing limits.
+                    
+                \item Mathematics
+                
+                    As mathematics is closely related to computer science, it is also related to a field of it.
+
+                \item Data Science and Engineering, Data Analysis
+                
+                    At times, the development of a software product requires statistical research and data collection. More commonly, with the release of a software product to users, data collection begins, which is then analysed by software engineers to use in the maintenance, improvement phase of the process.
+                
+                \item Database Engineering
+                
+                    Designing data-intensive applications is not trivial. Data retrieval, modification and storage are all processes used in today's software systems, and thus they must be conducted efficiently.
+                
+            \end{itemize}
+
+        \subsection*{Connection to other areas outside of Computer Science}
+
+            The use of technology and software has been implemented in many domains. Of course, to develop a software product for use in a particular fields (e.g. medical, manufacturing, agriculture, etc.), a software engineer will require competences related to that field, in order to understand the client's needs and specifications better, and to optimize user experience.
+
+            Software engineering as a discipline encompasses competences outside of computer science, thus we shall list related disciplines with competences similar to those in software engineering, as presented in \cite{swebokv3} as well as \cite{denning2000computer}
+
+            \begin{itemize}
+                \item Project management, Team management, Management Science
+                    
+                    The development of a software product is a big project, and during the development lifecycle of software, software engineers must be capable to manage a team effectively. The primary goal of a software engineer is to have a quality software product developed as soon as possible.
+
+                \item Psychology, Cognitive and Behavioral sciences
+                
+                    During the design phase of a software product, a software engineer must keep the user in mind: Is this interface simple enough for the user? In cases where the software product is used in emergency situations, is its interface designed well so that it can be used in such situations of increased stress? and many other questions.
+
+                \item Economics
+                
+                    The cost of the software development process must also be kept in mind. Resources, in the form of people (developers, designers, etc.) as well as in the material form (machines, power supply, etc.) can become costly if they are not taken into consideration.
+
+            \end{itemize}
+
+    \newpage
+    \section{Software Engineering at UVT}
+
+        The West University of Timisoara offers a \href{https://info.uvt.ro/programe-master/inginerie-software/}{Master's degree in software engineering}, with a duration of two years. Below follow the competences which one is expected to acquire by following this study program, in a summarized manner, as described by the syllabus.
+
+        \subsection*{Professional competences}
+            \begin{itemize}
+                \item Knowledge of the software development lifecycle as well as methodologies for software development, particularly agile methods. The ability to propose the suitable method and to contribute to its improvement
+                \item Software product development by systematically applying development processes.
+                \item Collection, documentation and analysis of client needs and creation of specifications for the software product. Knowledge of definition and negotiation of quality attributes in software architecture
+                \item Analysis of data and extraction of information using data analysis tools, including the cases of large data sets.
+                \item Analysis, projection, documentation and evaluation of the software system architecture, data management, behavior and human-computer interaction. Knowledge and use of corresponding modelling tools and languages (e.g. UML\footnote{Unified Modelling Language; used to design object-oriented software architectures.})
+                \item Building superior quality software systems, according to specifications and coding standards.
+                \item Development and application of software product verification and validation plans, as well as quality assurance
+                \item Use of specific tools for the different phases of the software development process as well as tools for team collaboration
+                \item Creation of technical documentation and usage documentation
+                \item Analysis and development of distributed systems
+            \end{itemize}
+        \subsection*{Transversal\footnote{i.e. competences that are not necessarily bound to the field of software engineering.} competences}
+            \begin{itemize}
+                \item Ability to efficiently plan and organize workload 
+                \item Critical analysis of results
+                \item Respecting ethical norms specific to the domain of activity
+                \item Ability to communicate and transfer knowledge
+                \item Ability to work productively, in an interdisciplinary context, whether that be individually or as part of a team.
+            \end{itemize}
+
+    \newpage
+    \printbibliography
+
+\end{document}
